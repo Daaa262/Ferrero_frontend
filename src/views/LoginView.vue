@@ -48,15 +48,10 @@ function login() {
 
 .login-section button {
   font-size: 6vh;
-  background-color: #a0a0a0;
-  border-color: #000000;
-  color: #ffffff;
-  border-radius: 2vh;
   cursor: pointer;
   border-width: 1vh;
   margin-top: 5vh;
   padding: 1vh 10vw;
-  -webkit-text-stroke: #000000 0.2vh;
   font-weight: bold;
 }
 

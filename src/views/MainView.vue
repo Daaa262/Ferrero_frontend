@@ -3,19 +3,31 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
+function inspection() {
+  router.push('/inspection')
+}
+function use() {
+  router.push('/use')
+}
+function change() {
+  router.push('/change')
+}
 function back() {
   router.push('/')
 }
 </script>
 
 <template>
-  <div class="login-section">
-    <button @click="back()">Powrót</button>
+  <div class="button-section">
+    <button @click="inspection">Przegląd</button>
+    <button @click="use">Użycie</button>
+    <button @click="change">Wymiana</button>
+    <button @click="back">Wyloguj</button>
   </div>
 </template>
 
 <style scoped>
-.login-section {
+.button-section {
   margin-top: 2vh;
   font-size: 5vh;
   display: flex;
@@ -25,43 +37,25 @@ function back() {
   user-select: none;
 }
 
-.login-section button {
-  font-size: 6vh;
-  background-color: #a0a0a0;
-  border-color: #000000;
-  color: #ffffff;
-  border-radius: 2vh;
-  cursor: pointer;
-  border-width: 1vh;
-  margin-top: 5vh;
-  padding: 1vh 10vw;
-  -webkit-text-stroke: #000000 0.2vh;
-  font-weight: bold;
-}
-
-.login-section input {
+.button-section button {
   font-size: 5vh;
-  background-color: #ffffff;
-  border-color: #000000;
-  color: #000000;
-  border-radius: 2vh;
-  cursor: pointer;
+  width: 50%;
+  user-select: none;
+  padding: 2vh;
   border-width: 1vh;
-}
-
-.form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 2vh;
-  width: 40%;
+  margin-top: 1vh;
+  cursor: pointer;
 }
 
 @media (max-aspect-ratio: 1/1) {
-  .form-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2vh;
+  .button-section button {
+    font-size: 5vh;
     width: 80%;
+    user-select: none;
+    padding: 2vh;
+    margin-top: 10vws;
+    border-width: 1vh;
+    margin-top: 1vh;
   }
 }
 </style>
