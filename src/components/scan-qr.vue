@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { QrcodeStream } from 'vue-qrcode-reader'
-
-const router = useRouter()
 
 const detectedCode = ref<string>('')
 const writtenCode = ref<string>('')
 
-function onDetect(detectedCodes: string[]) {
+const emit = defineEmits<{
+  (e: 'code', code: string): void
+}>()
+
+function onDetect(detectedCodes: { rawValue: string }[]) {
   detectedCode.value = detectedCodes[0].rawValue
 }
 
-function back() {
-  router.push('/main')
+function ok() {
+  if (writtenCode.value) {
+    emit('code', 'G' + writtenCode.value)
+  } else {
+    emit('code', detectedCode.value)
+  }
 }
 </script>
 
@@ -33,9 +38,7 @@ function back() {
   </div>
   <div class="buttons">
     <h1 v-if="detectedCode">Zeskanowano: {{ detectedCode }}</h1>
-
     <button :disabled="!(detectedCode || writtenCode)" @click="ok">Okej</button>
-    <button @click="back">Powrót</button>
   </div>
 </template>
 

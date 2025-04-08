@@ -31,7 +31,9 @@ function login() {
       <label>Hasło:</label>
       <input v-model="password" type="password" />
     </div>
-    <button @click="login()">Zaloguj</button>
+    <div class="button-row">
+      <button @click="login()">Zaloguj</button>
+    </div>
   </div>
 </template>
 
@@ -51,7 +53,7 @@ function login() {
   cursor: pointer;
   border-width: 1vh;
   margin-top: 5vh;
-  padding: 1vh 10vw;
+  padding: 1vh 0;
   font-weight: bold;
 }
 
@@ -72,8 +74,24 @@ function login() {
   width: 40%;
 }
 
+.button-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2vh;
+  text-align: center;
+  justify-self: center;
+  width: 30%;
+}
+
 @media (max-aspect-ratio: 1/1) {
   .form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
+    width: 80%;
+  }
+
+  .button-row {
     display: flex;
     flex-direction: column;
     margin-bottom: 2vh;

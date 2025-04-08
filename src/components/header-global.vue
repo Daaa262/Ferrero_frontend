@@ -1,4 +1,4 @@
-<script lang="ts"></script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="ferrero-header">PPoż Ferrero</div>
