@@ -7,11 +7,28 @@ import MenuButton from '../components/menu-button.vue'
 const first = ref<string>()
 const second = ref<string>()
 
+const notify = async (): Promise<void> => {
+  const permission: NotificationPermission = await Notification.requestPermission()
+
+  if (permission === 'granted') {
+    try {
+      const registration = await navigator.serviceWorker.ready
+      registration.showNotification('PPoż Ferrero', {
+        body: `Gaśnica ${first.value} została zamieniona na ${second.value}!`,
+        icon: 'favicon.ico',
+      })
+    } catch (e) {
+      alert(`${e}`)
+    }
+  }
+}
+
 function handleCode(code: string) {
   if (!first.value) {
     first.value = code
   } else if (code !== first.value) {
     second.value = code
+    notify()
   }
 }
 </script>
@@ -22,7 +39,7 @@ function handleCode(code: string) {
     <h6 v-else-if="!second">Zeskanuj nową gaśnice.</h6>
   </div>
   <ScanQR v-if="!second" @code="handleCode" />
-  <change-view v-else :first="first!" :second="second!" />
+  <ChangeView v-else :first="first!" :second="second!" />
   <MenuButton />
 </template>
 

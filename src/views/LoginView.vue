@@ -32,7 +32,7 @@ function login() {
       <input v-model="password" type="password" />
     </div>
     <div class="button-row">
-      <button @click="login()">Zaloguj</button>
+      <button @click="login">Zaloguj</button>
     </div>
   </div>
 </template>

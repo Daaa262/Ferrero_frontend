@@ -2,29 +2,31 @@
   "name": "ferrero-front",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
-    "preview": "vite preview",
-    "build-only": "vite build",
-    "type-check": "vue-tsc --build",
-    "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
-    "lint:eslint": "eslint . --fix",
     "lint": "run-s lint:*",
-    "format": "prettier --write src/"
+    "build-only": "vite build",
+    "dev": "vite",
+    "format": "prettier --write src/",
+    "lint:eslint": "eslint . --fix",
+    "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --build"
   },
   "dependencies": {
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
     "vue-qr": "^4.0.9",
     "vue-qrcode-reader": "^5.7.1",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.1",
     "@types/node": "^22.14.0",
+    "@vite-pwa/assets-generator": "^1.0.0",
     "@vitejs/plugin-vue": "^5.2.3",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.5.0",
     "@vue/tsconfig": "^0.7.0",
@@ -37,7 +39,9 @@
     "prettier": "3.5.3",
     "typescript": "~5.8.0",
     "vite": "^6.2.4",
+    "vite-plugin-pwa": "^1.0.0",
     "vite-plugin-vue-devtools": "^7.7.2",
     "vue-tsc": "^2.2.8"
-  }
+  },
+  "packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971"
 }
