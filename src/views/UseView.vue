@@ -34,4 +34,8 @@ function handleCode(code: string) {
   <MenuButton />
 </template>
 
-<style scoped></style>
+<style scoped>
+.error {
+  color: #ff0000;
+}
+</style>
