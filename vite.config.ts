@@ -11,9 +11,6 @@ export default defineConfig({
     vueDevTools(),
     VitePWA({
       registerType: 'autoUpdate',
-      devOptions: {
-        enabled: true,
-      },
       manifest: {
         name: 'PPoż Ferrero',
         short_name: 'PPoż Ferrero',
@@ -28,6 +25,10 @@ export default defineConfig({
           },
         ],
       },
+      includeAssets: ['icon.png'],
+      filename: 'sw.ts',
+      strategies: 'injectManifest',
+      srcDir: 'src',
     }),
   ],
   resolve: {
