@@ -17,6 +17,9 @@ function move() {
 function back() {
   router.push('/')
 }
+function add() {
+  router.push('/add')
+}
 function changeAccount() {
   localStorage.removeItem('JWTtoken')
   router.push('/')
@@ -46,7 +49,7 @@ onMounted(() => {
     <button v-if="privileges >= 0" @click="inspection">Przegląd</button>
     <button v-if="privileges >= 0" @click="use">Użycie</button>
     <button v-if="privileges == 1" @click="move">Przeniesienie</button>
-    <button v-if="privileges == 1">Dodanie</button>
+    <button v-if="privileges == 1" @click="add">Dodanie do magazynu</button>
     <button v-if="privileges == 1">Zużyte gaśnice</button>
     <button v-if="privileges == 1">Użytkownicy</button>
     <button v-if="privileges == -1" @click="back">Zaloguj się</button>

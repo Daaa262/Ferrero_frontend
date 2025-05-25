@@ -1,32 +1,38 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { FetchStatus } from '../enums/status.ts'
+import QRCode from 'qrcode'
+import { ref } from 'vue'
 
 const props = defineProps<{
   extinguisher: string
-  location: string
+  expire: string
   status: FetchStatus
 }>()
 
-onMounted(() => {
-  console.log(
-    `Extinguisher: ${props.extinguisher}, Location: ${props.location}, Status: ${props.status}`,
-  )
+const qrCodeDataUrl = ref<string>('')
+
+onMounted(async () => {
+  if (props.status === FetchStatus.Success) {
+    qrCodeDataUrl.value = await QRCode.toDataURL(props.extinguisher, {
+      width: window.innerWidth,
+      margin: 1,
+    })
+  }
 })
 </script>
 
 <template>
   <div v-if="status === FetchStatus.Success">
-    <h1>Gaśnica z kodem {{ props.extinguisher }} została przeniesiona do {{ props.location }}.</h1>
+    <h2>Dodano do magazynu gaśnice o id: {{ props.extinguisher }}</h2>
+    <h2>Data Ważności: {{ props.expire }}</h2>
+    <img :src="qrCodeDataUrl" alt="Kod QR gaśnicy" />
   </div>
   <div v-else-if="status === FetchStatus.Unauthorized" class="red">
     <h1>Brak uprawnień.</h1>
   </div>
-  <div v-else-if="status === FetchStatus.NotFound" class="red">
-    <h1>Gaśnica {{ props.extinguisher }} nie istnieje w bazie.</h1>
-  </div>
   <div v-else-if="status === FetchStatus.BadRequest" class="red">
-    <h1>Gaśnica {{ props.extinguisher }} nie może zostać przeniesiona.</h1>
+    <h1>Nie można dodać gaśnicy.</h1>
   </div>
   <div v-else-if="status === FetchStatus.Error" class="red">
     <h1>Wystąpił błąd podczas łączenia z bazą danych.</h1>
@@ -39,5 +45,10 @@ onMounted(() => {
 <style scoped>
 .red {
   color: red;
+}
+img {
+  width: 40%;
+  display: flex;
+  justify-self: center;
 }
 </style>
