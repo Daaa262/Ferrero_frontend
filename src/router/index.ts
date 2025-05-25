@@ -3,7 +3,7 @@ import LoginView from '../views/LoginView.vue'
 import MainView from '../views/MainView.vue'
 import InspectionView from '../views/InspectionView.vue'
 import UseView from '../views/UseView.vue'
-import ChangeView from '../views/ChangeView.vue'
+import MoveView from '../views/MoveView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,9 +29,9 @@ const router = createRouter({
       component: UseView,
     },
     {
-      path: '/change',
-      name: 'change',
-      component: ChangeView,
+      path: '/move',
+      name: 'move',
+      component: MoveView,
     },
   ],
 })

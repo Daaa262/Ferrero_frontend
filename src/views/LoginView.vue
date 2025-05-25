@@ -1,18 +1,34 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
-const name = ref('')
-const surname = ref('')
+const username = ref('')
 const password = ref('')
 
 const router = useRouter()
 
-function login() {
-  if (name.value === 'Admin' && surname.value === 'Admin' && password.value === 'Admin') {
-    router.push('/main')
-  } else {
-    alert(`Niepoprawne dane logowania`)
+async function login() {
+  let response = null
+  try {
+    response = await axios.post('http://localhost:8080/api/login', {
+      username: username.value,
+      password: password.value,
+    })
+    if (response.data) {
+      localStorage.setItem('JWTtoken', response.data)
+      router.push('/main')
+    }
+  } catch (error) {
+    if (
+      axios.isAxiosError(error) &&
+      error.response &&
+      error.response.status === axios.HttpStatusCode.Unauthorized
+    ) {
+      alert('Niepoprawne dane logowania')
+    } else {
+      alert('Wystąpił błąd podczas łączenia z bazą danych.')
+    }
   }
 }
 </script>
@@ -20,12 +36,8 @@ function login() {
 <template>
   <div class="login-section">
     <div class="form-row">
-      <label>Imie:</label>
-      <input v-model="name" type="text" />
-    </div>
-    <div class="form-row">
-      <label>Nazwisko:</label>
-      <input v-model="surname" type="text" />
+      <label>Imie i nazwisko:</label>
+      <input v-model="username" type="text" />
     </div>
     <div class="form-row">
       <label>Hasło:</label>

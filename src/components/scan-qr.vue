@@ -15,7 +15,7 @@ function onDetect(detectedCodes: { rawValue: string }[]) {
 
 function ok() {
   if (writtenCode.value) {
-    emit('code', 'G' + writtenCode.value)
+    emit('code', writtenCode.value)
   } else {
     emit('code', detectedCode.value)
   }
@@ -31,7 +31,6 @@ function ok() {
     <div class="text">
       <h2>Lub wpisz kod:</h2>
       <div class="input">
-        G
         <input v-model="writtenCode" type="text" />
       </div>
     </div>

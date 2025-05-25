@@ -1,29 +1,32 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { FetchStatus } from '../enums/status.ts'
 
 const props = defineProps<{
-  receivedCode: string
-  location: string | null
-  expire: Date
-  notes: string | null
-  used: boolean
+  extinguisher: string
+  location: string
   status: FetchStatus
 }>()
+
+onMounted(() => {
+  console.log(
+    `Extinguisher: ${props.extinguisher}, Location: ${props.location}, Status: ${props.status}`,
+  )
+})
 </script>
 
 <template>
   <div v-if="status === FetchStatus.Success">
-    <h2>Kod Gaśnicy: {{ props.receivedCode }}</h2>
-    <h2>Położenie: {{ props.location ? props.location : 'Magazyn' }}</h2>
-    <h2>Data Ważności: {{ props.expire }}</h2>
-    <h2 v-if="props.notes">Uwagi: {{ props.notes }}</h2>
-    <h2 v-if="props.used" class="red">Użyta: {{ props.used ? 'Tak' : 'Nie' }}</h2>
+    <h1>Gaśnica z kodem {{ props.extinguisher }} została przeniesiona do {{ props.location }}.</h1>
   </div>
   <div v-else-if="status === FetchStatus.Unauthorized" class="error">
     <h1>Brak uprawnień.</h1>
   </div>
   <div v-else-if="status === FetchStatus.NotFound" class="error">
-    <h1>Gaśnica {{ props.receivedCode }} nie istnieje w bazie.</h1>
+    <h1>Gaśnica {{ props.extinguisher }} nie istnieje w bazie.</h1>
+  </div>
+  <div v-else-if="status === FetchStatus.BadRequest" class="error">
+    <h1>Gaśnica {{ props.extinguisher }} nie może zostać przeniesiona.</h1>
   </div>
   <div v-else-if="status === FetchStatus.Error" class="error">
     <h1>Wystąpił błąd podczas łączenia z bazą danych.</h1>
@@ -34,7 +37,7 @@ const props = defineProps<{
 </template>
 
 <style scoped>
-.red {
+.error {
   color: red;
 }
 </style>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
+import { ref } from 'vue'
 
 const router = useRouter()
 
@@ -9,20 +11,46 @@ function inspection() {
 function use() {
   router.push('/use')
 }
-function change() {
-  router.push('/change')
+function move() {
+  router.push('/move')
 }
 function back() {
   router.push('/')
 }
+function changeAccount() {
+  localStorage.removeItem('JWTtoken')
+  router.push('/')
+}
+
+const privileges = ref(-1)
+
+onMounted(() => {
+  const token = localStorage.getItem('JWTtoken')
+  if (!token) {
+    router.push('/')
+  } else {
+    const decodedToken = JSON.parse(atob(token.split('.')[1]))
+    const expirationDate = new Date(decodedToken.exp * 1000)
+    if (expirationDate < new Date()) {
+      localStorage.removeItem('JWTtoken')
+      router.push('/')
+    } else {
+      privileges.value = decodedToken.role
+    }
+  }
+})
 </script>
 
 <template>
   <div class="button-section">
-    <button @click="inspection">Przegląd</button>
-    <button @click="use">Użycie</button>
-    <button @click="change">Wymiana</button>
-    <button @click="back">Wyloguj</button>
+    <button v-if="privileges >= 0" @click="inspection">Przegląd</button>
+    <button v-if="privileges >= 0" @click="use">Użycie</button>
+    <button v-if="privileges == 1" @click="move">Przeniesienie</button>
+    <button v-if="privileges == 1">Dodanie</button>
+    <button v-if="privileges == 1">Zużyte gaśnice</button>
+    <button v-if="privileges == 1">Użytkownicy</button>
+    <button v-if="privileges == -1" @click="back">Zaloguj się</button>
+    <button v-else @click="changeAccount">Zmień konto</button>
   </div>
 </template>
 

@@ -1,12 +1,30 @@
 <script setup lang="ts">
+import { FetchStatus } from '../enums/status.ts'
+
 const props = defineProps<{
   receivedCode: string
+  status: FetchStatus
 }>()
 </script>
 
 <template>
-  <div>
+  <div v-if="status === FetchStatus.Success">
     <h1>Gaśnica z kodem {{ props.receivedCode }} została oznaczona jako zużyta.</h1>
+  </div>
+  <div v-else-if="status === FetchStatus.Unauthorized" class="error">
+    <h1>Brak uprawnień.</h1>
+  </div>
+  <div v-else-if="status === FetchStatus.NotFound" class="error">
+    <h1>Gaśnica {{ receivedCode }} nie istnieje w bazie.</h1>
+  </div>
+  <div v-else-if="status === FetchStatus.BadRequest" class="error">
+    <h1>Gaśnica {{ receivedCode }} została wcześniej oznaczona jako zużyta.</h1>
+  </div>
+  <div v-else-if="status === FetchStatus.Error" class="error">
+    <h1>Wystąpił błąd podczas łączenia z bazą danych.</h1>
+  </div>
+  <div v-else>
+    <h1>Wczytuję...</h1>
   </div>
 </template>
 
