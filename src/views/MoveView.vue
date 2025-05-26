@@ -9,6 +9,7 @@ import axios from 'axios'
 const extinguisher = ref<string>()
 const location = ref<string>()
 const fetchStatus = ref<FetchStatus>(FetchStatus.Loading)
+const reason = ref<string>('')
 
 async function moveExtinguisher() {
   try {
@@ -58,6 +59,7 @@ async function handleCode(code: string) {
     :extinguisher="extinguisher!"
     :location="location!"
     :status="fetchStatus"
+    :reason="reason"
   />
   <MenuButton />
 </template>

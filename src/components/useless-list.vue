@@ -2,6 +2,7 @@
 type FireExtinguisher = {
   id: string
   used: boolean
+  location: string
 }
 
 const props = defineProps<{
@@ -14,9 +15,7 @@ const props = defineProps<{
     <h3>Lista bezużytecznych gaśnic:</h3>
     <ul>
       <li v-for="item in props.list" :key="item.id">
-        <b>
-          {{ item.id }}
-        </b>
+        <b> {{ item.id }}({{ item.location ? item.location : 'rezerwowa w magazynie' }}) </b>
         -
         <span v-if="item.used">Zużyta</span>
         <span v-else>Przeterminowana.</span>

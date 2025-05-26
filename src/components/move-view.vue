@@ -6,6 +6,7 @@ const props = defineProps<{
   extinguisher: string
   location: string
   status: FetchStatus
+  reason: string | null
 }>()
 
 onMounted(() => {
@@ -26,7 +27,7 @@ onMounted(() => {
     <h1>Gaśnica {{ props.extinguisher }} nie istnieje w bazie.</h1>
   </div>
   <div v-else-if="status === FetchStatus.BadRequest" class="red">
-    <h1>Gaśnica {{ props.extinguisher }} nie może zostać przeniesiona.</h1>
+    <h1>Gaśnica {{ props.extinguisher }} nie może zostać przeniesiona. {{ props.reason }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.Error" class="red">
     <h1>Wystąpił błąd podczas łączenia z bazą danych.</h1>
