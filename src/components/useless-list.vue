@@ -1,9 +1,5 @@
 <script setup lang="ts">
-type FireExtinguisher = {
-  id: string
-  used: boolean
-  location: string
-}
+import type { FireExtinguisher } from '../types/fire-extinguisher.ts'
 
 const props = defineProps<{
   list: FireExtinguisher[]
@@ -12,7 +8,6 @@ const props = defineProps<{
 
 <template>
   <div>
-    <h3>Lista bezużytecznych gaśnic:</h3>
     <ul>
       <li v-for="item in props.list" :key="item.id">
         <b> {{ item.id }}({{ item.location ? item.location : 'rezerwowa w magazynie' }}) </b>
@@ -22,15 +17,11 @@ const props = defineProps<{
       </li>
     </ul>
     <p v-if="props.list.length === 0">Brak bezużytecznych gaśnic.</p>
-    <p v-else>Łącznie: {{ props.list.length }} bezużytecznych gaśnic.</p>
+    <p v-else>Łącznie: {{ props.list.length }}</p>
   </div>
 </template>
 
 <style scoped>
-h3 {
-  font-size: 4vh;
-}
-
 li {
   font-size: 3vh;
 }

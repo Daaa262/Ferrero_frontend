@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { FetchStatus } from '../enums/status.ts'
-import UselessList from './useless-list.vue'
-import type { FireExtinguisher } from '../types/fire-extinguisher.ts'
+import UserList from './users-list.vue'
+import type { User } from '../types/user.ts'
 
 const props = defineProps<{
-  list: FireExtinguisher[]
+  list: User[]
   status: FetchStatus
 }>()
 </script>
 
 <template>
-  <UselessList v-if="props.status === FetchStatus.Success" :list="list" />
+  <UserList v-if="props.status === FetchStatus.Success" :list="list" />
   <div v-else-if="props.status === FetchStatus.Unauthorized" class="red">
     <h1>Brak uprawnień.</h1>
   </div>

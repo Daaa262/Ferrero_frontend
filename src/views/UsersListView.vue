@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import UselessView from '../components/useless-view.vue'
+import UsersView from '../components/users-view.vue'
 import MenuButton from '../components/menu-button.vue'
 import { FetchStatus } from '../enums/status.ts'
 import axios from 'axios'
-import type { FireExtinguisher } from '../types/fire-extinguisher.ts'
+import type { User } from '../types/user.ts'
 
-const list = ref<FireExtinguisher[]>([])
+const list = ref<User[]>([])
 const fetchStatus = ref<FetchStatus>(FetchStatus.Loading)
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/list_useless', {
+    const response = await axios.get('http://localhost:8080/api/get_users', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('JWTtoken')}`,
       },
@@ -35,9 +35,9 @@ onMounted(async () => {
 
 <template>
   <div class="text">
-    <h5>Lista zużytych i przeterminowanych gaśnic:</h5>
+    <h5>Lista użytkowników:</h5>
   </div>
-  <UselessView :list="list" :status="fetchStatus" />
+  <UsersView :list="list" :status="fetchStatus" />
   <MenuButton />
 </template>
 

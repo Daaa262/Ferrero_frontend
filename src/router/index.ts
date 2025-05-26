@@ -7,6 +7,7 @@ import MoveView from '../views/MoveView.vue'
 import AddView from '../views/AddView.vue'
 import RemoveView from '../views/RemoveView.vue'
 import UselessView from '../views/UselessListView.vue'
+import UsersView from '../views/UsersListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/useless',
       name: 'useless',
       component: UselessView,
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: UsersView,
     },
   ],
 })
