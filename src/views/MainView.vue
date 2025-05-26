@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import { ref } from 'vue'
+import '../assets/base.css'
 
 const router = useRouter()
 
@@ -19,6 +20,12 @@ function back() {
 }
 function add() {
   router.push('/add')
+}
+function remove() {
+  router.push('/remove')
+}
+function useless() {
+  router.push('/useless')
 }
 function changeAccount() {
   localStorage.removeItem('JWTtoken')
@@ -48,10 +55,13 @@ onMounted(() => {
   <div class="button-section">
     <button v-if="privileges >= 0" @click="inspection">Przegląd</button>
     <button v-if="privileges >= 0" @click="use">Użycie</button>
+    <br />
     <button v-if="privileges == 1" @click="move">Przeniesienie</button>
     <button v-if="privileges == 1" @click="add">Dodanie do magazynu</button>
-    <button v-if="privileges == 1">Zużyte gaśnice</button>
+    <button v-if="privileges == 1" @click="remove">Usunięcie</button>
+    <button v-if="privileges == 1" @click="useless">Bezużyteczne gaśnice</button>
     <button v-if="privileges == 1">Użytkownicy</button>
+    <br />
     <button v-if="privileges == -1" @click="back">Zaloguj się</button>
     <button v-else @click="changeAccount">Zmień konto</button>
   </div>

@@ -19,7 +19,8 @@ function formatDate(date: Date): string {
 <template>
   <div v-if="status === FetchStatus.Success">
     <h2>Kod Gaśnicy: {{ props.receivedCode }}</h2>
-    <h2>Położenie: {{ props.location ? props.location : 'Magazyn' }}</h2>
+    <h2 v-if="props.location">Lokalizacja: {{ props.location }}</h2>
+    <h2 v-else>Gaśnica rezerwowa w magazynie.</h2>
     <h2 v-if="isBefore(props.expire, new Date())" class="red">
       Data Ważności: {{ formatDate(props.expire) }}
     </h2>

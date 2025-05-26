@@ -5,6 +5,8 @@ import InspectionView from '../views/InspectionView.vue'
 import UseView from '../views/UseView.vue'
 import MoveView from '../views/MoveView.vue'
 import AddView from '../views/AddView.vue'
+import RemoveView from '../views/RemoveView.vue'
+import UselessView from '../views/UselessListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +40,16 @@ const router = createRouter({
       path: '/add',
       name: 'add',
       component: AddView,
+    },
+    {
+      path: '/remove',
+      name: 'remove',
+      component: RemoveView,
+    },
+    {
+      path: '/useless',
+      name: 'useless',
+      component: UselessView,
     },
   ],
 })

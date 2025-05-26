@@ -76,11 +76,11 @@ async function add() {
     <div class="form-row">
       <label>ID gaśnicy:</label>
       <label class="footnote">Pozostaw puste aby automatycznie przypisać kod</label>
-      <input v-model="extinguisher" type="text" />
+      <input v-model="extinguisher" type="text" maxlength="10" />
     </div>
     <div class="form-row">
       <label>Data ważności:</label>
-      <input v-model="expire" type="text" placeholder="dd.mm.yyyy" />
+      <input v-model="expire" type="text" placeholder="dd.mm.yyyy" maxlength="10" />
     </div>
     <div class="button-row">
       <button @click="add">Dodaj</button>
