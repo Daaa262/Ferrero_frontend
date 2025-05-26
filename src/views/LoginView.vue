@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import HolidayView from '../components/holiday-view.vue'
+import NamedayView from '../components/nameday-view.vue'
 
 const username = ref('')
 const password = ref('')
@@ -34,7 +36,7 @@ async function login() {
 </script>
 
 <template>
-  <div class="login-section">
+  <div class="main-section">
     <div class="form-row">
       <label>Imie i nazwisko:</label>
       <input v-model="username" type="text" />
@@ -46,11 +48,15 @@ async function login() {
     <div class="button-row">
       <button @click="login">Zaloguj</button>
     </div>
+    <br />
+    <br />
+    <HolidayView />
+    <NamedayView />
   </div>
 </template>
 
 <style scoped>
-.login-section {
+.main-section {
   margin-top: 2vh;
   font-size: 5vh;
   display: flex;
@@ -60,7 +66,7 @@ async function login() {
   user-select: none;
 }
 
-.login-section button {
+.main-section button {
   font-size: 6vh;
   cursor: pointer;
   border-width: 1vh;
@@ -69,7 +75,7 @@ async function login() {
   font-weight: bold;
 }
 
-.login-section input {
+.main-section input {
   font-size: 5vh;
   background-color: #ffffff;
   border-color: #000000;
