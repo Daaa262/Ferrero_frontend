@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import axios from 'axios'
 import HolidayView from '../components/holiday-view.vue'
 import NamedayView from '../components/nameday-view.vue'
+import { onMounted } from 'vue'
 
 const username = ref('')
 const password = ref('')
@@ -19,6 +20,24 @@ async function login() {
     })
     if (response.data) {
       localStorage.setItem('JWTtoken', response.data)
+      const decodedToken = JSON.parse(atob(response.data.split('.')[1]))
+
+      if (Notification.permission === 'granted' && decodedToken.role >= 1) {
+        const registration = await navigator.serviceWorker.ready
+        const publicVapidKey = import.meta.env.VITE_PUBLIC_VAPID
+        const subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
+        })
+
+        localStorage.setItem('subscriptionEndpoint', subscription.endpoint)
+
+        await axios.post('http://localhost:8080/api/subscribe', subscription, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+      }
       router.push('/main')
     }
   } catch (error) {
@@ -32,6 +51,55 @@ async function login() {
       alert('Wystąpił błąd podczas łączenia z bazą danych.')
     }
   }
+}
+
+onMounted(async () => {
+  const token = localStorage.getItem('JWTtoken')
+  if (!token) {
+    if (localStorage.getItem('subscriptionEndpoint')) {
+      await axios.post(
+        'http://localhost:8080/api/unsubscribe',
+        localStorage.getItem('subscriptionEndpoint'),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+      localStorage.removeItem('subscriptionEndpoint')
+    }
+    return
+  }
+  const decodedToken = JSON.parse(atob(token.split('.')[1]))
+  const expirationDate = new Date(decodedToken.exp * 1000)
+  if (expirationDate < new Date()) {
+    if (localStorage.getItem('subscriptionEndpoint')) {
+      await axios.post(
+        'http://localhost:8080/api/unsubscribe',
+        localStorage.getItem('subscriptionEndpoint'),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      )
+      localStorage.removeItem('subscriptionEndpoint')
+    }
+    localStorage.removeItem('JWTtoken')
+    return
+  }
+  router.push('/main')
+})
+
+function urlBase64ToUint8Array(base64String: string): Uint8Array {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
+  const rawData = window.atob(base64)
+  const outputArray = new Uint8Array(rawData.length)
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i)
+  }
+  return outputArray
 }
 </script>
 

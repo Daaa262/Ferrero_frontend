@@ -1,39 +1,46 @@
 /// <reference lib="webworker" />
 declare const self: ServiceWorkerGlobalScope
 
-import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching'
+import {
+  precacheAndRoute,
+  cleanupOutdatedCaches,
+  createHandlerBoundToURL,
+} from 'workbox-precaching'
+import { registerRoute, NavigationRoute } from 'workbox-routing'
 
 cleanupOutdatedCaches()
 
 precacheAndRoute(self.__WB_MANIFEST || [])
 
+const handler = createHandlerBoundToURL('/index.html')
+const navigationRoute = new NavigationRoute(handler)
+
+registerRoute(navigationRoute)
+
 self.addEventListener('install', () => self.skipWaiting())
 self.addEventListener('activate', () => self.clients.claim())
 
-self.addEventListener('fetch', function (event) {
-  console.log('fetch event for ', event)
-})
+interface PushData {
+  message?: string
+}
 
-self.addEventListener('message', function (event) {
-  console.log('message event for ', event)
-})
+self.addEventListener('push', (event: PushEvent) => {
+  let data: PushData = {}
 
-self.addEventListener('push', function (event) {
-  console.log('push event for ', event)
-})
+  if (event.data) {
+    try {
+      data = event.data.json()
+    } catch (e) {
+      data = { message: event.data.text() }
+    }
+  }
 
-self.addEventListener('sync', function (event) {
-  console.log('sync event for ', event)
-})
+  const title = 'Powiadomienie'
+  const options = {
+    body: data.message || 'Masz nowe powiadomienie',
+    icon: '/icon.png',
+    badge: '/icon.png',
+  }
 
-self.addEventListener('notificationclick', function (event) {
-  console.log('notificationclick event for ', event)
-})
-
-self.addEventListener('notificationclose', function (event) {
-  console.log('notificationclose event for ', event)
-})
-
-self.addEventListener('sync', function (event) {
-  console.log('sync event for ', event)
+  event.waitUntil(self.registration.showNotification(title, options))
 })

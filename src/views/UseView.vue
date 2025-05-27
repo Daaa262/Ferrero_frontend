@@ -9,23 +9,6 @@ import { FetchStatus } from '../enums/status.ts'
 const receivedCode = ref<string>('')
 const fetchStatus = ref<FetchStatus>(FetchStatus.Loading)
 
-const notify = async (): Promise<void> => {
-  const permission: NotificationPermission = await Notification.requestPermission()
-
-  if (permission === 'granted') {
-    try {
-      const registration = await navigator.serviceWorker.ready
-      registration.showNotification('PPoż Ferrero', {
-        body: `Gaśnica ${receivedCode.value} została użyta!`,
-        icon: 'favicon.ico',
-      })
-    } catch (e) {
-      console.log(e)
-      alert(`${e}`)
-    }
-  }
-}
-
 async function handleCode(code: string) {
   receivedCode.value = code
   try {
@@ -39,7 +22,6 @@ async function handleCode(code: string) {
       },
     )
     fetchStatus.value = FetchStatus.Success
-    notify()
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       if (error.response.status === axios.HttpStatusCode.Unauthorized) {
