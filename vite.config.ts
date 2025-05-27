@@ -25,7 +25,7 @@ export default defineConfig({
           },
         ],
       },
-      includeAssets: ['icon.png'],
+      includeAssets: ['icon.png', 'favicon.ico'],
       filename: 'sw.ts',
       strategies: 'injectManifest',
       srcDir: 'src',
@@ -36,4 +36,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  base: '/',
 })

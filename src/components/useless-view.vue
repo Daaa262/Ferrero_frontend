@@ -12,13 +12,13 @@ const props = defineProps<{
 <template>
   <UselessList v-if="props.status === FetchStatus.Success" :list="list" />
   <div v-else-if="props.status === FetchStatus.Unauthorized" class="red">
-    <h1>Brak uprawnień.</h1>
+    <h1>{{ $t('unauthorized') }}</h1>
   </div>
   <div v-else-if="props.status === FetchStatus.Error" class="red">
-    <h1>Wystąpił błąd podczas łączenia z bazą danych.</h1>
+    <h1>{{ $t('databaseError') }}</h1>
   </div>
   <div v-else>
-    <h1>Wczytuję...</h1>
+    <h1>{{ $t('loading') }}</h1>
   </div>
 </template>
 

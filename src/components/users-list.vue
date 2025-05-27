@@ -59,15 +59,15 @@ onMounted(() => {
   <div>
     <ul>
       <li v-for="item in props.list" :key="item.username">
-        Nazwa:
+        {{ $t('username') }}
         <b>{{ item.username }}</b>
         <span v-if="item.role === 1" class="admin">ADMIN</span>
         <span v-if="item.role === 2" class="superadmin">SUPERADMIN</span>
-        <span v-if="item.role < privileges" class="red" @click="remove_user(item.username)"
-          >USUŃ</span
-        >
+        <span v-if="item.role < privileges" class="red" @click="remove_user(item.username)">{{
+          $t('delete')
+        }}</span>
         <br v-if="item.password" />
-        <span v-if="item.password">Hasło:</span>
+        <span v-if="item.password">{{ $t('password') }}</span>
         <b v-if="item.password" class="hidden"> {{ item.password }}</b>
       </li>
       <br />

@@ -37,14 +37,14 @@ async function add() {
 
 <template>
   <div class="form">
-    Imie i nazwisko: <input type="text" id="name" maxlength="100" v-model="username" />
+    {{ $t('username') }} <input type="text" id="name" maxlength="100" v-model="username" />
   </div>
   <div v-if="props.privileges === 2" class="checkbox">
     ADMIN
     <input type="checkbox" v-model="admin" />
   </div>
   <div class="form">
-    <button @click="add">Dodaj użytkownika</button>
+    <button @click="add">{{ $t('addUser') }}</button>
   </div>
 </template>
 

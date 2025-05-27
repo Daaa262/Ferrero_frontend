@@ -50,8 +50,8 @@ async function handleCode(code: string) {
 
 <template>
   <div class="text">
-    <h4 v-if="!extinguisher">Zeskanuj gaśnice do przeniesienia.</h4>
-    <h4 v-else-if="!location">Zeskanuj lokalizacje.</h4>
+    <h4 v-if="!extinguisher">{{ $t('scanToMove') }}</h4>
+    <h4 v-else-if="!location">{{ $t('scanLocation') }}</h4>
   </div>
   <ScanQR v-if="!location" @code="handleCode" />
   <MoveView

@@ -20,7 +20,7 @@ onMounted(async () => {
 
 <template>
   <div class="holiday-view" v-if="holiday">
-    <h3>Dzisiejsze święto nietypowe:</h3>
+    <h3>{{ $t('holiday') }}</h3>
     <ul>
       <li v-for="(item, index) in holiday" :key="index">{{ item.name }}</li>
     </ul>

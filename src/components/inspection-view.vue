@@ -18,27 +18,27 @@ function formatDate(date: Date): string {
 
 <template>
   <div v-if="status === FetchStatus.Success">
-    <h2>Kod Gaśnicy: {{ props.receivedCode }}</h2>
-    <h2 v-if="props.location">Lokalizacja: {{ props.location }}</h2>
-    <h2 v-else>Gaśnica rezerwowa w magazynie.</h2>
+    <h2>{{ $t('extinguisherID') }} {{ props.receivedCode }}</h2>
+    <h2 v-if="props.location">{{ $t('location') }} {{ props.location }}</h2>
+    <h2 v-else>{{ $t('inStorage') }}</h2>
     <h2 v-if="isBefore(props.expire, new Date())" class="red">
-      Data Ważności: {{ formatDate(props.expire) }}
+      {{ $t('expireDate') }} {{ formatDate(props.expire) }}
     </h2>
-    <h2 v-else>Data Ważności: {{ formatDate(props.expire) }}</h2>
-    <h2 v-if="props.notes">Uwagi: {{ props.notes }}</h2>
-    <h2 v-if="props.used" class="red">Gaśnica zużyta</h2>
+    <h2 v-else>{{ $t('expireDate') }} {{ formatDate(props.expire) }}</h2>
+    <h2 v-if="props.notes">{{ $t('notes') }} {{ props.notes }}</h2>
+    <h2 v-if="props.used" class="red">{{ $t('usedExtinguisher') }}</h2>
   </div>
   <div v-else-if="status === FetchStatus.Unauthorized" class="red">
-    <h1>Brak uprawnień.</h1>
+    <h1>{{ $t('unauthorized') }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.NotFound" class="red">
-    <h1>Gaśnica {{ props.receivedCode }} nie istnieje w bazie.</h1>
+    <h1>{{ $t('extinguisher') }} {{ props.receivedCode }} {{ $t('notExistInDb') }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.Error" class="red">
-    <h1>Wystąpił błąd podczas łączenia z bazą danych.</h1>
+    <h1>{{ $t('databaseError') }}</h1>
   </div>
   <div v-else>
-    <h1>Wczytuję...</h1>
+    <h1>{{ $t('loading') }}</h1>
   </div>
 </template>
 

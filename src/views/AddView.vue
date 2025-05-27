@@ -74,16 +74,16 @@ async function add() {
 <template>
   <div class="form-section" v-if="fetchStatus === FetchStatus.Loading">
     <div class="form-row">
-      <label>ID gaśnicy:</label>
-      <label class="footnote">Pozostaw puste aby automatycznie przypisać kod</label>
+      <label>{{ $t('extinguisherID') }}</label>
+      <label class="footnote">{{ $t('footnote') }}</label>
       <input v-model="extinguisher" type="text" maxlength="10" />
     </div>
     <div class="form-row">
-      <label>Data ważności:</label>
+      <label>{{ $t('expireDate') }}</label>
       <input v-model="expire" type="text" placeholder="dd.mm.yyyy" maxlength="10" />
     </div>
     <div class="button-row">
-      <button @click="add">Dodaj</button>
+      <button @click="add">{{ $t('add') }}</button>
     </div>
   </div>
   <AddView v-else :extinguisher="extinguisher" :expire="expire" :status="fetchStatus" />

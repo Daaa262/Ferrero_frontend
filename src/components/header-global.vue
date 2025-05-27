@@ -1,7 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { locale } = useI18n()
+
+function changeLanguage() {
+  locale.value = locale.value === 'pl' ? 'en' : 'pl'
+}
+</script>
 
 <template>
-  <div class="ferrero-header">PPoż Ferrero</div>
+  <div class="ferrero-header" @click="changeLanguage">PPoż Ferrero</div>
 </template>
 
 <style scoped>

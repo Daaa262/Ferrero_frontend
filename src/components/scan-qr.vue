@@ -25,19 +25,19 @@ function ok() {
 <template>
   <div class="fetch">
     <div class="scanner">
-      <h2>Zeskanuj QR gaśnicy:</h2>
+      <h2>{{ $t('scanQR') }}</h2>
       <qrcode-stream @detect="onDetect" />
     </div>
     <div class="text">
-      <h2>Lub wpisz kod:</h2>
+      <h2>{{ $t('orTypeID') }}</h2>
       <div class="input">
         <input v-model="writtenCode" type="text" />
       </div>
     </div>
   </div>
   <div class="buttons">
-    <h1 v-if="detectedCode">Zeskanowano: {{ detectedCode }}</h1>
-    <button :disabled="!(detectedCode || writtenCode)" @click="ok">Okej</button>
+    <h1 v-if="detectedCode">{{ $t('scanned') }} {{ detectedCode }}</h1>
+    <button :disabled="!(detectedCode || writtenCode)" @click="ok">{{ $t('ok') }}</button>
   </div>
 </template>
 

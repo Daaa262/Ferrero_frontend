@@ -9,22 +9,22 @@ const props = defineProps<{
 
 <template>
   <div v-if="status === FetchStatus.Success">
-    <h1>Gaśnica z kodem {{ props.receivedCode }} została oznaczona jako zużyta.</h1>
+    <h1>{{ $t('extinguisherWithID') }} {{ props.receivedCode }} {{ $t('markedAsUsed') }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.Unauthorized" class="red">
-    <h1>Brak uprawnień.</h1>
+    <h1>{{ $t('unauthorized') }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.NotFound" class="red">
-    <h1>Gaśnica {{ receivedCode }} nie istnieje w bazie.</h1>
+    <h1>{{ $t('extinguisher') }} {{ receivedCode }} {{ $t('notExistInDb') }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.BadRequest" class="red">
-    <h1>Gaśnica {{ receivedCode }} została wcześniej oznaczona jako zużyta.</h1>
+    <h1>{{ $t('extinguisher') }} {{ receivedCode }} {{ $t('alreadyUsed') }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.Error" class="red">
-    <h1>Wystąpił błąd podczas łączenia z bazą danych.</h1>
+    <h1>{{ $t('databaseError') }}</h1>
   </div>
   <div v-else>
-    <h1>Wczytuję...</h1>
+    <h1>{{ $t('loading') }}</h1>
   </div>
 </template>
 

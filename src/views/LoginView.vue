@@ -106,15 +106,15 @@ function urlBase64ToUint8Array(base64String: string): Uint8Array {
 <template>
   <div class="main-section">
     <div class="form-row">
-      <label>Imie i nazwisko:</label>
+      <label>{{ $t('username') }}</label>
       <input v-model="username" type="text" />
     </div>
     <div class="form-row">
-      <label>Hasło:</label>
+      <label>{{ $t('password') }}</label>
       <input v-model="password" type="password" />
     </div>
     <div class="button-row">
-      <button @click="login">Zaloguj</button>
+      <button @click="login">{{ $t('login') }}</button>
     </div>
     <br />
     <br />

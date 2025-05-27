@@ -35,7 +35,7 @@ onMounted(async () => {
 
 <template>
   <div class="text">
-    <h5>Lista zużytych i przeterminowanych gaśnic:</h5>
+    <h5>{{ $t('listOfUseless') }}</h5>
   </div>
   <UselessView :list="list" :status="fetchStatus" />
   <MenuButton />

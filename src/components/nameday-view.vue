@@ -20,7 +20,7 @@ onMounted(async () => {
 
 <template>
   <div class="nameday-view" v-if="nameday">
-    <h3>Dzisiaj imieniny obchodzi:</h3>
+    <h3>{{ $t('nameday') }}</h3>
     <ul>
       <li v-for="(item, index) in nameday.data.pl.split(',')" :key="index">{{ item }}</li>
     </ul>

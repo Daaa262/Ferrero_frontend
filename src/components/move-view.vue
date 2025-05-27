@@ -18,22 +18,26 @@ onMounted(() => {
 
 <template>
   <div v-if="status === FetchStatus.Success">
-    <h1>Gaśnica z kodem {{ props.extinguisher }} została przeniesiona do {{ props.location }}.</h1>
+    <h1>
+      {{ $t('extinguisher') }} {{ props.extinguisher }} {{ $t('movedTo') }} {{ props.location }}.
+    </h1>
   </div>
   <div v-else-if="status === FetchStatus.Unauthorized" class="red">
-    <h1>Brak uprawnień.</h1>
+    <h1>{{ $t('unauthorized') }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.NotFound" class="red">
-    <h1>Gaśnica {{ props.extinguisher }} nie istnieje w bazie.</h1>
+    <h1>{{ $t('extinguisher') }} {{ props.extinguisher }} {{ $t('notExistInDb') }}.</h1>
   </div>
   <div v-else-if="status === FetchStatus.BadRequest" class="red">
-    <h1>Gaśnica {{ props.extinguisher }} nie może zostać przeniesiona. {{ props.reason }}</h1>
+    <h1>
+      {{ $t('extinguisher') }} {{ props.extinguisher }} {{ $t('cantBeMoved') }} {{ props.reason }}
+    </h1>
   </div>
   <div v-else-if="status === FetchStatus.Error" class="red">
-    <h1>Wystąpił błąd podczas łączenia z bazą danych.</h1>
+    <h1>{{ $t('databaseError') }}</h1>
   </div>
   <div v-else>
-    <h1>Wczytuję...</h1>
+    <h1>{{ $t('loading') }}</h1>
   </div>
 </template>
 

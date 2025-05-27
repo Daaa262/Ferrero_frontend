@@ -56,17 +56,17 @@ onMounted(() => {
 
 <template>
   <div class="button-section">
-    <button v-if="privileges >= 0" @click="inspection">Przegląd</button>
-    <button v-if="privileges >= 0" @click="use">Użycie</button>
+    <button v-if="privileges >= 0" @click="inspection">{{ $t('inspect') }}</button>
+    <button v-if="privileges >= 0" @click="use">{{ $t('use') }}</button>
     <br />
-    <button v-if="privileges >= 1" @click="move">Przeniesienie</button>
-    <button v-if="privileges >= 1" @click="add">Dodanie do magazynu</button>
-    <button v-if="privileges >= 1" @click="remove">Usunięcie</button>
-    <button v-if="privileges >= 1" @click="useless">Bezużyteczne gaśnice</button>
-    <button v-if="privileges >= 1" @click="users">Użytkownicy</button>
+    <button v-if="privileges >= 1" @click="move">{{ $t('move') }}</button>
+    <button v-if="privileges >= 1" @click="add">{{ $t('addToStorage') }}</button>
+    <button v-if="privileges >= 1" @click="remove">{{ $t('remove') }}</button>
+    <button v-if="privileges >= 1" @click="useless">{{ $t('useless') }}</button>
+    <button v-if="privileges >= 1" @click="users">{{ $t('users') }}</button>
     <br />
-    <button v-if="privileges == -1" @click="back">Zaloguj się</button>
-    <button v-else @click="changeAccount">Zmień konto</button>
+    <button v-if="privileges == -1" @click="back">{{ $t('login2') }}</button>
+    <button v-else @click="changeAccount">{{ $t('logout') }}</button>
   </div>
 </template>
 

@@ -24,21 +24,21 @@ onMounted(async () => {
 
 <template>
   <div v-if="status === FetchStatus.Success">
-    <h2>Dodano do magazynu gaśnice o id: {{ props.extinguisher }}</h2>
-    <h2>Data Ważności: {{ props.expire }}</h2>
+    <h2>{{ $t('extinguisherAddedToStorage') }} {{ props.extinguisher }}</h2>
+    <h2>{{ $t('expireDate') }} {{ props.expire }}</h2>
     <img :src="qrCodeDataUrl" alt="Kod QR gaśnicy" />
   </div>
   <div v-else-if="status === FetchStatus.Unauthorized" class="red">
-    <h1>Brak uprawnień.</h1>
+    <h1>{{ $t('unauthorized') }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.BadRequest" class="red">
-    <h1>Nie można dodać gaśnicy.</h1>
+    <h1>{{ $t('unableToAddExtinguisher') }}</h1>
   </div>
   <div v-else-if="status === FetchStatus.Error" class="red">
-    <h1>Wystąpił błąd podczas łączenia z bazą danych.</h1>
+    <h1>{{ $t('databaseError') }}</h1>
   </div>
   <div v-else>
-    <h1>Wczytuję...</h1>
+    <h1>{{ $t('loading') }}</h1>
   </div>
 </template>
 
