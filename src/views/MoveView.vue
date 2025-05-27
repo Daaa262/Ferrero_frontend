@@ -14,7 +14,7 @@ const reason = ref<string>('')
 async function moveExtinguisher() {
   try {
     await axios.patch(
-      `http://localhost:8080/api/move?id=${extinguisher.value}&location=${location.value}`,
+      `/api/move?id=${extinguisher.value}&location=${location.value}`,
       {},
       {
         headers: {

@@ -11,15 +11,11 @@ onMounted(async () => {
   const token = localStorage.getItem('JWTtoken')
   if (!token) {
     if (localStorage.getItem('subscriptionEndpoint')) {
-      await axios.post(
-        'http://localhost:8080/api/unsubscribe',
-        localStorage.getItem('subscriptionEndpoint'),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      await axios.post('/api/unsubscribe', localStorage.getItem('subscriptionEndpoint'), {
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+      })
       localStorage.removeItem('subscriptionEndpoint')
     }
     router.push('/')
@@ -30,15 +26,11 @@ onMounted(async () => {
   if (expirationDate < new Date()) {
     localStorage.removeItem('JWTtoken')
     if (localStorage.getItem('subscriptionEndpoint')) {
-      await axios.post(
-        'http://localhost:8080/api/unsubscribe',
-        localStorage.getItem('subscriptionEndpoint'),
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      await axios.post('/api/unsubscribe', localStorage.getItem('subscriptionEndpoint'), {
+        headers: {
+          'Content-Type': 'application/json',
         },
-      )
+      })
       localStorage.removeItem('subscriptionEndpoint')
     }
     router.push('/')
@@ -65,7 +57,7 @@ onMounted(async () => {
 
     localStorage.setItem('subscriptionEndpoint', subscription.endpoint)
 
-    await axios.post('http://localhost:8080/api/subscribe', subscription, {
+    await axios.post('/api/subscribe', subscription, {
       headers: {
         'Content-Type': 'application/json',
       },

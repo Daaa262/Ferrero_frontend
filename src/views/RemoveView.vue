@@ -12,7 +12,7 @@ const fetchStatus = ref<FetchStatus>(FetchStatus.Loading)
 async function handleCode(code: string) {
   receivedCode.value = code
   try {
-    await axios.delete('http://localhost:8080/api/remove', {
+    await axios.delete('/api/remove', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('JWTtoken')}`,
       },

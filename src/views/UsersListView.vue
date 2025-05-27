@@ -11,7 +11,7 @@ const fetchStatus = ref<FetchStatus>(FetchStatus.Loading)
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:8080/api/get_users', {
+    const response = await axios.get('/api/get_users', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('JWTtoken')}`,
       },

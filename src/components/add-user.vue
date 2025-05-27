@@ -16,7 +16,7 @@ async function add() {
   }
   try {
     await axios.post(
-      `http://localhost:8080/api/add_user?username=${username.value}&role=${admin.value ? 1 : 0}`,
+      `/api/add_user?username=${username.value}&role=${admin.value ? 1 : 0}`,
       {},
       {
         headers: {

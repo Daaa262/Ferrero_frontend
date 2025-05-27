@@ -17,7 +17,7 @@ async function handleCode(code: string) {
   receivedCode.value = code
 
   try {
-    const response = await axios.get(`http://localhost:8080/api/inspection?id=${code}`, {
+    const response = await axios.get(`/api/inspection?id=${code}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('JWTtoken')}`,
       },

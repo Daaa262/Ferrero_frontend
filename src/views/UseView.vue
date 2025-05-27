@@ -13,7 +13,7 @@ async function handleCode(code: string) {
   receivedCode.value = code
   try {
     await axios.patch(
-      `http://localhost:8080/api/use?id=${code}`,
+      `/api/use?id=${code}`,
       {},
       {
         headers: {

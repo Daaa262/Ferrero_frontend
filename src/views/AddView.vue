@@ -36,7 +36,7 @@ async function add() {
   try {
     if (extinguisher.value === '') {
       const response = await axios.post(
-        `http://localhost:8080/api/add?expire=${isoExpire}`,
+        `/api/add?expire=${isoExpire}`,
         {},
         {
           headers: {
@@ -47,7 +47,7 @@ async function add() {
       extinguisher.value = response.data
     } else {
       await axios.post(
-        `http://localhost:8080/api/add?expire=${isoExpire}&customID=${extinguisher.value}`,
+        `/api/add?expire=${isoExpire}&customID=${extinguisher.value}`,
         {},
         {
           headers: {

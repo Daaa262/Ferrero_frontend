@@ -15,7 +15,7 @@ const props = defineProps<{
 
 async function remove_user(index: string) {
   try {
-    await axios.delete('http://localhost:8080/api/remove_user', {
+    await axios.delete('/api/remove_user', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('JWTtoken')}`,
       },
